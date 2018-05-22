@@ -1,6 +1,6 @@
 #!/bin/sh
 
-port=/dev/ttyUSB1
+port=/dev/ttyUSB0
 base=`dirname $0`
 
 transfere() {
@@ -14,3 +14,4 @@ transfere base64.py
 transfere sx127x.py
 transfere urequests.py
 transfere hmac.py
+transfere main.py
