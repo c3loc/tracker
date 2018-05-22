@@ -75,7 +75,7 @@ def parseNMEA(line):
 	return info
 
 def getBattery():
-	pin = machine.Pin(34)
+	pin = machine.Pin(BAT_PIN)
 	adc = machine.ADC(pin)
 	adc.width(adc.WIDTH_12BIT)
 	adc.atten(adc.ATTN_0DB)
@@ -147,7 +147,7 @@ def receiveLora(chip, rawdata):
 def mainTracker():
 	uart = machine.UART(2, 9600) # 17: tx, 16: rx
 	start = time.ticks_ms()
-	while (time.ticks_ms() - start) < 5000 :
+	while (time.ticks_ms() - start) < GPS_WAIT_TIME :
 		try:
 			line = uart.readline().decode()
 		except Exception:
@@ -162,9 +162,7 @@ def mainTracker():
 			buf = encodeData(info)
 			sendDataLora(buf)
 			break
-	time.sleep(1)
-#	machine.deepsleep(30000)
-	machine.deepsleep(1)
+	machine.deepsleep(SEND_INTERVALL)
 
 def mainGateway():
 	connectWifi()

@@ -10,3 +10,6 @@ SSID = 'foo'
 SSID_PW = 'bar'
 
 # only if TYPE == 'tracker'
+BAT_PIN = 34
+GPS_WAIT_TIME = 5000 #ms
+SEND_INTERVALL = 30000 #ms
