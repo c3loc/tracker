@@ -1,8 +1,6 @@
 # bsaed on https://github.com/Wei1234c/SX127x_driver_for_MicroPython_on_ESP8266
 
 from time import sleep
-import config_lora
-
 
 PA_OUTPUT_RFO_PIN = 0
 PA_OUTPUT_PA_BOOST_PIN = 1
