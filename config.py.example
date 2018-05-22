@@ -1,0 +1,12 @@
+TYPE = 'gateway' # 'tracker' or 'gateway'
+HMAC_KEY = b''
+HMAC_LENGTH = 16
+
+# only if TYPE == 'gateway'
+GWNAME = 'asd'
+URL = 'http://192.168.2.250:5000/gateway/push_lora'
+APIKEY = 'thisisanapikey'
+SSID = 'foo'
+SSID_PW = 'bar'
+
+# only if TYPE == 'tracker'

@@ -1,0 +1,8 @@
+bn-280
+
+C (grau): SCL
+V (rot): VCC
+R (gruen): RX
+T (weiss): TX
+G (schwarz): GND
+D (gelb): SDA
