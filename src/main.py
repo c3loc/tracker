@@ -6,6 +6,7 @@ import sys
 import lora
 import hmac
 import ubinascii
+import random
 
 from config import *
 
@@ -90,13 +91,14 @@ def getBattery():
 
 def sendDataLora(buf):
 	print('started sending lora data...', end='')
+	timebefore = time.ticks_ms()
 	l = lora.init()
 	l.aquire_lock(False)
 	l.beginPacket()
 	l.write(buf)
 	l.endPacket();
 	l.aquire_lock(False)
-	print('done')
+	print('done (took {}ms)'.format(time.ticks_ms() - timebefore))
 
 def encodeData(data):
 	mac = struct.unpack("<L", network.WLAN().config('mac')[-4:])[0]
@@ -135,7 +137,7 @@ def receiveLora(chip, rawdata):
 		wantedhmac = hmac.new(HMAC_KEY, msg=data).digest()[:HMAC_LENGTH]
 		rssi = chip.packetRssi()
 		snr = chip.packetSnr()
-		print('got data {}, hmac is {}'.format(data, datahmac))
+		print('got data {}, hmac: {}, rssi: {}, snr: {}'.format(data, datahmac, rssi, snr))
 		if datahmac == wantedhmac:
 			sendDataWifi(bytes(data), rssi, snr)
 		else:
@@ -162,7 +164,8 @@ def mainTracker():
 			buf = encodeData(info)
 			sendDataLora(buf)
 			break
-	machine.deepsleep(SEND_INTERVALL)
+	sleeptime = random.randint(int(SEND_INTERVALL*0.9), int(SEND_INTERVALL*1.1))
+	machine.deepsleep(max(1, sleeptime))
 
 def mainGateway():
 	connectWifi()
