@@ -78,8 +78,8 @@ def parseNMEA(line):
 def getBattery():
 	pin = machine.Pin(BAT_PIN)
 	adc = machine.ADC(pin)
-	adc.width(adc.WIDTH_12BIT)
-	adc.atten(adc.ATTN_0DB)
+	adc.atten(machine.ADC.ATTN_11DB)
+	adc.width(adc.WIDTH_10BIT)
 	result = []
 	for i in range(8):
 		result.append(adc.read())
