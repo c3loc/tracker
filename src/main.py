@@ -87,7 +87,7 @@ def getBattery():
 	tmp = 0
 	for i in result:
 		tmp += i
-	return tmp // len(result)
+	return tmp // len(result) // 8
 
 def sendDataLora(buf):
 	print('started sending lora data...', end='')
@@ -164,6 +164,9 @@ def mainTracker():
 			buf = encodeData(info)
 			sendDataLora(buf)
 			break
+	else:
+		buf = encodeData({'lat': 0, 'lon': 0})
+		sendDataLora(buf)
 	sleeptime = random.randint(int(SEND_INTERVALL*0.9), int(SEND_INTERVALL*1.1))
 	machine.deepsleep(max(1, sleeptime))
 
